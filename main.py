@@ -133,24 +133,17 @@ def create_group(driver: webdriver, group_name: str) -> str:
 def create_sub_accounts(driver: webdriver, group_name: str, sub_num: int = 45, sub_username: list = None):
     web_wait(driver, By.XPATH,
              f"//*[@id='contentDetail']//div[contains(@class, 'listWrap')]//div[contains(@class, 'card')]//div[text() = '{group_name}']")
-    ActionChains(driver).move_to_element(driver.find_element(By.XPATH,
-                                                             f"//div[text() = '{group_name}']/ancestor::div[contains(@class, 'cardContainer')]")).click().perform()
+    ActionChains(driver).move_to_element(driver.find_element(By.XPATH, f"//div[text() = '{group_name}']/ancestor::div[contains(@class, 'cardContainer')]")).click().perform()
 
-    web_wait(driver, By.XPATH, "//*[@id = 'contentDetail']//div[contains(@class, 'member')]/div[text() = '成员']",
-             wait_for_clickable=True)
-    ActionChains(driver).move_to_element(driver.find_element(By.XPATH,
-                                                             "//*[@id = 'contentDetail']//div[contains(@class, 'member')]/div[text() = '成员']")).click().perform()
-    web_wait(driver, By.XPATH, "//button[contains(@class, 'openAddUsersBtn')]/span[text() = '批量添加']",
-             wait_for_clickable=True)
-    ActionChains(driver).move_to_element(driver.find_element(By.XPATH,
-                                                             "//button[contains(@class, 'openAddUsersBtn')]/span[text() = '批量添加']")).click().perform()
+    web_wait(driver, By.XPATH, "//*[@id = 'contentDetail']//div[contains(@class, 'member')]/div[text() = '成员']", wait_for_clickable=True)
+    ActionChains(driver).move_to_element(driver.find_element(By.XPATH, "//*[@id = 'contentDetail']//div[contains(@class, 'member')]/div[text() = '成员']")).click().perform()
+    web_wait(driver, By.XPATH, "//button[contains(@class, 'openAddUsersBtn')]/span[text() = '批量注册']", wait_for_clickable=True)
+    ActionChains(driver).move_to_element(driver.find_element(By.XPATH, "//button[contains(@class, 'openAddUsersBtn')]/span[text() = '批量注册']")).click().perform()
 
     # 点击添加
-    web_wait(driver, By.XPATH, "//span[text() = '新增']/parent::div[contains(@class, 'listFooter')]",
-             wait_for_clickable=True)
+    web_wait(driver, By.XPATH, "//span[text() = '新增']/parent::div[contains(@class, 'listFooter')]", wait_for_clickable=True)
     for _ in range(10, sub_num):
-        ActionChains(driver).move_to_element(driver.find_element(By.XPATH,
-                                                                 "//span[text() = '新增']/parent::div[contains(@class, 'listFooter')]")).click().perform()
+        ActionChains(driver).move_to_element(driver.find_element(By.XPATH, "//span[text() = '新增']/parent::div[contains(@class, 'listFooter')]")).click().perform()
 
     # 如未指定，创建子用户名
     if sub_username is None:
@@ -165,15 +158,13 @@ def create_sub_accounts(driver: webdriver, group_name: str, sub_num: int = 45, s
         logging.debug(f"successful create No.{index} sub-account: {sub_name}")
 
     # 提交
-    ActionChains(driver).move_to_element(
-        driver.find_element(By.XPATH, "//button/span[text() = '添加']")).click().perform()
+    ActionChains(driver).move_to_element(driver.find_element(By.XPATH, "//button/span[text() = '添加']")).click().perform()
     web_wait(driver, By.XPATH, "//div[text() = '添加成功']/parent::div[contains(@class, 'dialog')]", until_sec=30)
 
     logging.info(f"successful create {sub_num} accounts")
 
 
-def main(group_name: str, sub_num: int = 45, use_cookie: bool = False,
-         save_path: str = os.path.dirname(os.path.abspath(__file__))):
+def main(group_name: str, sub_num: int = 45, use_cookie: bool = False, save_path: str = os.path.dirname(os.path.abspath(__file__))):
     driver = set_driver(
         headless_mode=True,
         auto_detach=False,
