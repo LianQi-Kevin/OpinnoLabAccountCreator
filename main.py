@@ -1,8 +1,8 @@
 import logging
 import os
 
-# from selenium import webdriver
-from seleniumwire import webdriver
+from selenium import webdriver
+# from seleniumwire import webdriver
 from selenium.webdriver import ActionChains
 from selenium.webdriver.common.by import By
 
@@ -137,8 +137,8 @@ def create_sub_accounts(driver: webdriver, group_name: str, sub_num: int = 45, s
 
     web_wait(driver, By.XPATH, "//*[@id = 'contentDetail']//div[contains(@class, 'member')]/div[text() = '成员']", wait_for_clickable=True)
     ActionChains(driver).move_to_element(driver.find_element(By.XPATH, "//*[@id = 'contentDetail']//div[contains(@class, 'member')]/div[text() = '成员']")).click().perform()
-    web_wait(driver, By.XPATH, "//button[contains(@class, 'openAddUsersBtn')]/span[text() = '批量添加']", wait_for_clickable=True)
-    ActionChains(driver).move_to_element(driver.find_element(By.XPATH, "//button[contains(@class, 'openAddUsersBtn')]/span[text() = '批量添加']")).click().perform()
+    web_wait(driver, By.XPATH, "//button[contains(@class, 'openAddUsersBtn')]/span[text() = '批量注册']", wait_for_clickable=True)
+    ActionChains(driver).move_to_element(driver.find_element(By.XPATH, "//button[contains(@class, 'openAddUsersBtn')]/span[text() = '批量注册']")).click().perform()
 
     # 点击添加
     web_wait(driver, By.XPATH, "//span[text() = '新增']/parent::div[contains(@class, 'listFooter')]", wait_for_clickable=True)
